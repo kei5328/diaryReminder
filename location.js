@@ -8,10 +8,10 @@ class Location{
       this.lat = lat;
       this.lon = lon;
       this.tz = this.getTz();
-      this._getApiKey()
+      this.MY_GOOGLE_KEY = Location._getApiKey()
   }
-  _getApiKey(){
-    this.MY_GOOGLE_KEY = PropertiesService.getScriptProperties().getProperty("GOOGLE_MAP_API_KEY");
+  static _getApiKey(){
+    return PropertiesService.getScriptProperties().getProperty("GOOGLE_MAP_API_KEY");
   }
   getDistMatTwoPoints(dest_lat, dest_lon, origin_lat, origin_lon)
   {
@@ -37,7 +37,7 @@ class Location{
     return dist_dict;
   }
   getTz(){
-      let url = "https://maps.googleapis.com/maps/api/timezone/json?location=" + this.lat +"%2C" + this.lon + "&timestamp=1331161200&key=" + this.GOOGLE_MAP_API_KEY;
+      let url = "https://maps.googleapis.com/maps/api/timezone/json?location=" + this.lat +"%2C" + this.lon + "&timestamp=1331161200&key=" + this.MY_GOOGLE_KEY;
       try
       {
         let res = UrlFetchApp.fetch(url);
