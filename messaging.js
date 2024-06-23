@@ -40,6 +40,7 @@ class MessageHandler{
     this.message_sender_ = new LineMessageSender();
     this.prop_manager_ = new PropertyManager();
     this.talk_api_ = new TalkAPi();
+    this.open_ai_api_ = new OpenAi();
   }
 
   /**
@@ -59,7 +60,7 @@ class MessageHandler{
     }else if (event.message.text.match(st_exp)!=null){
       response = this.getResponseForStreak();
     }else{
-      response = this.talk_api_.getResponse(event.message.text);
+      response = this.open_ai_api_.getResponse(event.message.text);
     }
     const payload = {
         "replyToken": event.replyToken,
