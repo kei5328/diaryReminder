@@ -24,7 +24,6 @@ class Location{
     url = url + "&key=" + this.MY_GOOGLE_KEY;
     const res_raw = UrlFetchApp.fetch(url);
     let res = JSON.parse(res_raw);
-    Logger.log(res)
     if (res && res.status == "OK"){
       let dist = res.rows[0].elements[0].distance.value;
       let dur_in_traffic = res.rows[0].elements[0].duration_in_traffic.value;
@@ -41,13 +40,12 @@ class Location{
       try
       {
         let res = UrlFetchApp.fetch(url);
-        Logger.log(res);
         res = JSON.parse(res);
         return res.timeZoneId;
       }
       catch (err)
       {
-        Logger.log(err);
+        //Logger.log(err);
         return "-1";
       }
   }

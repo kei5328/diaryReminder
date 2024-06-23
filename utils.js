@@ -2,14 +2,14 @@
 
 function testcovert()
 {
-  var latest_entry = getLatestEntryDate();
+  var latest_entry = StreakManager.getLatestEntryDate();
   var latest_tz = latest_entry.timezone;
   var curr_date = new Date();
   //let curr_date_str = curr_date.toLocaleString('en-US', {timeZone: "US/Pacific", hour12: false});
 
   //let up_date = new Date(curr_date_str);
-  var input_date = convertTZ(curr_date, latest_tz);
-  var system_date = convertTZ(curr_date, PropertiesService.getScriptProperties().getProperty("TZ"));
+  var input_date = TimeZoneManager.convertTZ(curr_date, latest_tz);
+  var system_date = TimeZoneManager.convertTZ(curr_date, PropertiesService.getScriptProperties().getProperty("TZ"));
   Logger.log(input_date);
   Logger.log(system_date);
   //Logger.log(up_date);
@@ -44,22 +44,7 @@ function parseUSLocaleString()
   Logger.log(upd_date);
 }
 
-
-function convertTZ(date, tzString) 
-{
-  //Logger.log(date);
-  //Logger.log(tzString);
-  let temp = date.toLocaleString('en-US', { timeZone: tzString,  hour12: false});
-  Logger.log(temp);
-  let new_date = new Date(temp);
-  //Logger.log(new_date);
-  return new_date;
-  //var new_date = new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
-  //Logger.log(new_date);
-  //return new_date;
-}
-
-// this function returns true if current time is at specified hour of the day. 
+// This function returns true if current time is at specified hour of the day. 
 function atSpecHour(specHour)
 {
   var date = new Date();
