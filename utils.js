@@ -48,7 +48,7 @@ function parseUSLocaleString()
 function atSpecHour(specHour)
 {
   var date = new Date();
-  date = convertTZ(date,PropertiesService.getScriptProperties().getProperty("TZ"));
+  date = TimeZoneManager.convertTZ(date,PropertiesService.getScriptProperties().getProperty("TZ"));
   date.setMinutes(date.getMinutes() + 30); // round the time to nearest hour. 
   return (date.getHours()==specHour)
 }

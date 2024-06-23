@@ -45,7 +45,7 @@ class TimeZoneManager{
     static checkLatestTz()
     {
         // let's check if the latest entry is has the same timezone as the set timezone. 
-        var latest_entry = getLatestEntryDate();
+        var latest_entry = StreakManager.getLatestEntryDate();
         var latest_tz = latest_entry.timezone;
         Logger.log(latest_tz);
         if (latest_tz!="")
