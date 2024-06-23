@@ -51,15 +51,16 @@ class MessageHandler{
     const kei_exp = /けい(ち|すけ)/g; 
     const fu_exp = /ふみ(た|ざ(ぶろう|えもん))/g;
     const st_exp = /(streak|record|information|記録.*教え)/g;
-    let response =""
-    if (event.message.text.startsWith("ふみた") || (event.message.text.match(fu_exp)!=null))
+    let response ="Hi";
+    if (event.message.text.startsWith("ふみた") || (event.message.text.match(fu_exp)!=null)){
       response = this.getResponseFromFumitanQuotes();
-    else if (event.message.text.startsWith("けいち") || (event.message.text.match(kei_exp)!=null))
+    }else if (event.message.text.startsWith("けいち") || (event.message.text.match(kei_exp)!=null)){
       response = this.getResponseFromKeiQuotes(); 
-    else if (event.message.text.match(st_exp)!=null)
+    }else if (event.message.text.match(st_exp)!=null){
       response = this.getResponseForStreak();
-    else 
-      response = this.talk_api_.getResponseFromTalkApi(event.message.text);
+    }else{
+      response = this.talk_api_.getResponse(event.message.text);
+    }
     const payload = {
         "replyToken": event.replyToken,
         "messages": [{
@@ -205,56 +206,24 @@ class MessageHandler{
    * @param {*} event 
    */
   handleMessage(event){
-    if((event.type == "message"))
-      {
-        if (event.message.type == "text")
-        {
+    if((event.type == "message")){
+        if (event.message.type == "text"){
           this.handleTextMessage(event);
-        }
-        else if (event.message.type == "location")
-        {
+        }else if (event.message.type == "location"){
           Logger.log(event);
           this.handleLocationMessage(event);
         }
-      }
-      else if (event.type == "postback")
-      {
-        if (event.source.userId == this.prop_manager_.MY_ID)
-        {
+      }else if (event.type == "postback"){
+        if (event.source.userId == this.prop_manager_.MY_ID){
           let newTz = event.postback.data;
-          if (newTz!="noTzUpdate")
-          {
+          if (newTz!="noTzUpdate"){
             TimeZoneManager.updateTZ(newTz);
             this.replyTimeZoneUpdate(event, true);
-          }
-          else
+          }else{
             this.replyTimeZoneUpdate(event, false);
+            }
         }
       }
     }
 }
 
-// this function sends the tailored streak message depending on the streak number. 
-function sendTzUpdateSuggestion(latest_tz)
-{
-  const text = "Your latest input may have a different timezone(" + latest_tz  + ") as the system timezone("+ PropertiesService.getScriptProperties().getProperty("TZ") + "). If you'd like to change it, please send the location via line.";
-      const q_reply = {
-        "type": "action", // ④
-        "action": {
-          "type": "location",
-          "label": "Send location"
-        }
-      };
-      const payload = {
-      to: this.prop_manager_.MY_ID,
-      messages: [
-        { type: 'text', 
-          text: text, 
-           "quickReply": { // ②
-            "items": [q_reply]
-         }
-        }
-      ]
-    };sendMsg
-  (payload);
-}
