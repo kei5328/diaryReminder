@@ -31,7 +31,7 @@ class LineMessageSender{
       "method": "post",
       "payload": JSON.stringify(reply_payload),
     }
-    UrlFetchApp.fetch(REPLY_URL, params);
+    UrlFetchApp.fetch(this.reply_url, params);
   }
 }
 
