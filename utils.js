@@ -50,5 +50,18 @@ function atSpecHour(specHour)
   var date = new Date();
   date = TimeZoneManager.convertTZ(date,PropertiesService.getScriptProperties().getProperty("TZ"));
   date.setMinutes(date.getMinutes() + 30); // round the time to nearest hour. 
-  return (date.getHours()==specHour)
+  return (date.getHours()==specHour);
+} 
+
+function getDateInt(date){
+  return parseInt(getDateToString(date));
+}
+
+function getDateToString(date){
+  date = TimeZoneManager.convertTZ(date,PropertiesService.getScriptProperties().getProperty("TZ"));
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Off by 1
+  const val =  year * 10000 + month * 100 + day;
+  return val.toString();
 }

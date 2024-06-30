@@ -17,5 +17,9 @@ class PropertyManager{
         this.hasLatestEntry = PropertiesService.getScriptProperties().getProperty("hasLatestEntry");
         this.max_streak = PropertiesService.getScriptProperties().getProperty("max_streak");
         this.real_streak = PropertiesService.getScriptProperties().getProperty("real_streak");
+        this.car_reserve_sheet_id = PropertiesService.getScriptProperties().getProperty("CAR_RESERVE_SHEET_ID");
+        this.car_reserve_sheet_name = PropertiesService.getScriptProperties().getProperty("CAR_RESERVE_SHEET_NAME");
+        this.reserve_check_time = PropertiesService.getScriptProperties().getProperty("RESERVE_CHECK_TIME");
     }
 }
+

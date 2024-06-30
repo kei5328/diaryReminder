@@ -42,6 +42,36 @@ function checkForStreaks()
   streak_manager.updateStreak();
 }
 
+function sendReservationInfo(){
+  const prop_manager = new PropertyManager();
+  if (atSpecHour(parseInt(prop_manager.reserve_check_time))==false){
+    return;
+  }
+  const reserve = new CarReserveHandler();
+  const date = new Date();
+  const date_int = parseInt(date.getFullYear())*10000 + parseInt(date.getMonth()+1)*100 + parseInt(date.getDate());
+  const res = reserve.getReservationFromDate(date_int);
+  if (res.length == 0){
+    return;
+  }
+  else{
+    const res_map = reserve.parseRow(res[0]);
+    if (res_map.get("user_id") == prop_manager.MY_ID){
+      return;
+    }else{
+      const msg_sender = new LineMessageSender();
+      const msg = "今日は車は予約が入ってます。つかえません！気を付けて！";
+      const payload = {
+        to: this.prop_manager_.MY_ID,
+        messages: [
+          { type: 'text', text: msg}
+        ]
+      };
+      msg_sender.sendMessage(payload); // sends a line message: 
+    } 
+  }
+}
+
 /* message handling */
 // handling when message was sent from the user. 
 function doPost(e) {
