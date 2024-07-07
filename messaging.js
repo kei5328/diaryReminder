@@ -274,8 +274,15 @@ class MessageHandler{
           "actions": [
               {
                 "type": "postback",
-                "label": "Cancel",
+                "label": "うん！キャンセルする！",
                 "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "displayText": "うん！キャンセルする！",
+              },
+              {
+                "type": "postback",
+                "label": "今はキャンセルしない。",
+                "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "displayText": "今はキャンセルしない。",
               },
             ]
       };
@@ -330,8 +337,15 @@ class MessageHandler{
           "actions": [
               {
                 "type": "postback",
-                "label": "Cancel",
+                "label": "うん！キャンセルする！",
                 "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "displayText": "うん！キャンセルする！",
+              },
+              {
+                "type": "postback",
+                "label": "今はキャンセルしない。",
+                "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "displayText": "今はキャンセルしない。",
               },
             ]
       };
@@ -373,22 +387,27 @@ class MessageHandler{
                 "type": "datetimepicker",
                 "label": "つかう！",
                 "mode": "date",
-                "data": "action=carReserve&selectId=1"
+                "data": "action=carReserve&selectId=1",
+                "displayText": "つかう！",
               },
               {
                 "type": "postback",
                 "label": "いまは予約しない。",
-                "data": "action=carReserve&selectId=2"
+                "data": "action=carReserve&selectId=2",
+                "displayText": "いまは予約しない。",
               },
               {
                 "type": "postback",
                 "label": "予約をキャンセルする。",
-                "data": "action=carReserve&selectId=3"
+                "data": "action=carReserve&selectId=3",
+                "displayText": "予約をキャンセルする。",
               },
               {
                 "type": "postback",
                 "label": "いつ予約してたか確認する。",
-                "data": "action=carReserve&selectId=4"
+                "data": "action=carReserve&selectId=4",
+                "displayText": "いつ予約してたか確認する。",
+
               },
           ]
       }
@@ -410,24 +429,28 @@ class MessageHandler{
           "actions": [
               {
                 "type": "datetimepicker",
-                "label": "OK",
+                "label": "つかう！",
                 "mode": "date",
-                "data": "action=carReserve&selectId=1"
+                "data": "action=carReserve&selectId=1",
+                "displayText": "つかう！",
               },
               {
                 "type": "postback",
                 "label": "いまは予約しない。",
-                "data": "action=carReserve&selectId=2"
+                "data": "action=carReserve&selectId=2",
+                "displayText": "いまは予約しない。",
               },
               {
                 "type": "postback",
-                "label": "Cancel Existing",
-                "data": "action=carReserve&selectId=3"
+                "label": "今ある予約をキャンセル。",
+                "data": "action=carReserve&selectId=3",
+                "displayText": "今ある予約をキャンセル。",
               },
               {
                 "type": "postback",
-                "label": "List upcoming",
-                "data": "action=carReserve&selectId=4"
+                "label": "予約の確認。",
+                "data": "action=carReserve&selectId=4",
+                "displayText": "予約の確認。",
               },
           ]
       }
