@@ -246,63 +246,69 @@ class MessageHandler{
     return response; 
   }
   /**
-   * 
+   * This method generates the cancel Carousel message template. 
    */
   generateReserveCancelCarousel(event){
     let user_id  = event.source.userId;
     var upcoming = this.reserve_.getUserUpcoming(user_id);
-    upcoming.sort(function(a, b) {
-      const sortColumnIndex = 3;
-      if (a[sortColumnIndex] < b[sortColumnIndex]) {
-        return -1;
-      }
-      if (a[sortColumnIndex] > b[sortColumnIndex]) {
-        return 1;
-      }
-      return 0;
-    });
-    let columns = [];
-    for (let row of upcoming){
-      let map = this.reserve_.parseRow(row);
-      let raw_date = map.get("reserve_date_int");
-      let text  = this.generateDateStringFromInt(raw_date);
-
-
-      let column = {
-          title: text,
-          text: text + "の予約をキャンセルする?",
-          "actions": [
-              {
-                "type": "postback",
-                "label": "うん！キャンセルする！",
-                "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
-                "displayText": "うん！キャンセルする！",
-              },
-              {
-                "type": "postback",
-                "label": "今はキャンセルしない。",
-                "data": "action=noAction&id=" + map.get("id") + "&day=" + raw_date,
-                "displayText": "今はキャンセルしない。",
-              },
-            ]
-      };
-      columns.push(column);
-    }
-    
-    var payload = {
-      "replyToken": event.replyToken,
-      "messages":[{
-        "type": "template",
-        "altText": "this is a carousel template",
-        "template": {
-          "type": "carousel",
-          "columns": columns,
-          "imageAspectRatio": "rectangle",
-          "imageSize": "cover"
+    // Check there is actually an upcoming reservation.
+    if (upcoming.length == 0){
+      const response = "まだ予約はしてないよ。";
+      var payload = this.generateReplyFromResp(event, response);
+      return payload;
+    }else{
+      upcoming.sort(function(a, b) {
+        const sortColumnIndex = 3;
+        if (a[sortColumnIndex] < b[sortColumnIndex]) {
+          return -1;
         }
-      }]
+        if (a[sortColumnIndex] > b[sortColumnIndex]) {
+          return 1;
+        }
+        return 0;
+      });
+      let columns = [];
+      for (let row of upcoming){
+        let map = this.reserve_.parseRow(row);
+        let raw_date = map.get("reserve_date_int");
+        let text  = this.generateDateStringFromInt(raw_date);
+  
+        let column = {
+            title: text,
+            text: text + "の予約をキャンセルする?",
+            "actions": [
+                {
+                  "type": "postback",
+                  "label": "うん！キャンセルする！",
+                  "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                  "displayText": "うん！キャンセルする！",
+                },
+                {
+                  "type": "postback",
+                  "label": "今はキャンセルしない。",
+                  "data": "action=noAction&id=" + map.get("id") + "&day=" + raw_date,
+                  "displayText": "今はキャンセルしない。",
+                },
+              ]
+        };
+        columns.push(column);
+      }
+      
+      var payload = {
+        "replyToken": event.replyToken,
+        "messages":[{
+          "type": "template",
+          "altText": "this is a carousel template",
+          "template": {
+            "type": "carousel",
+            "columns": columns,
+            "imageAspectRatio": "rectangle",
+            "imageSize": "cover"
+          }
+        }]
+      }
+      return payload;
     }
-    return payload;
   }
 
   generateDateStringFromInt(date_int){
