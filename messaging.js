@@ -281,7 +281,7 @@ class MessageHandler{
               {
                 "type": "postback",
                 "label": "今はキャンセルしない。",
-                "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "data": "action=noAction&id=" + map.get("id") + "&day=" + raw_date,
                 "displayText": "今はキャンセルしない。",
               },
             ]
@@ -344,7 +344,7 @@ class MessageHandler{
               {
                 "type": "postback",
                 "label": "今はキャンセルしない。",
-                "data": "action=carReserveCancel&id=" + map.get("id") + "&day=" + raw_date,
+                "data": "action=noAction&id=" + map.get("id") + "&day=" + raw_date,
                 "displayText": "今はキャンセルしない。",
               },
             ]
