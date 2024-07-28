@@ -68,7 +68,12 @@ class MessageHandler{
 
     // Initialize payload
     let payload; 
-    if (event.message.text.startsWith("ふみた") || (event.message.text.match(fu_exp)!=null)){
+    const registered_user = this.prop_manager_.registered_user_set.has(event.source.userId);
+    if (!registered_user){
+      // The case of un-registered user from the auth. Just route them to talk api which is free.
+      const response = this.talk_api_.getResponse(event.message.text);
+      payload = this.generateReplyFromResp(event, response);
+    }else if (event.message.text.startsWith("ふみた") || (event.message.text.match(fu_exp)!=null)){
       const response = this.getResponseFromFumitanQuotes();
       payload = this.generateReplyFromResp(event, response);
     }else if (event.message.text.startsWith("けいち") || (event.message.text.match(kei_exp)!=null)){

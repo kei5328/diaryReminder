@@ -20,6 +20,11 @@ class PropertyManager{
         this.car_reserve_sheet_id = PropertiesService.getScriptProperties().getProperty("CAR_RESERVE_SHEET_ID");
         this.car_reserve_sheet_name = PropertiesService.getScriptProperties().getProperty("CAR_RESERVE_SHEET_NAME");
         this.reserve_check_time = PropertiesService.getScriptProperties().getProperty("RESERVE_CHECK_TIME");
+        this.registered_id = JSON.parse(PropertiesService.getScriptProperties().getProperty("registered_id"));
+        this.registered_user_set = new Set();
+        for (let id of this.registered_id){
+            this.registered_user_set.add(id);
+        }
     }
 }
 
