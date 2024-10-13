@@ -56,19 +56,27 @@ function sendReservationInfo(){
   }
   else{
     const res_map = reserve.parseRow(res[0]);
-    if (res_map.get("user_id") == prop_manager.MY_ID){
-      return;
-    }else{
+    for (let user of prop_manager.registered_user_set){
       const msg_sender = new LineMessageSender();
-      const msg = "今日は車は予約が入ってます。つかえません！気を付けて！";
-      const payload = {
-        to: this.prop_manager_.MY_ID,
-        messages: [
-          { type: 'text', text: msg}
-        ]
-      };
+      if (res_map.get("user_id") != user){
+        const msg = "今日は車に他の人の予約が入ってます。つかえません！気を付けて！";
+        const payload = {
+          to: user,
+          messages: [
+            { type: 'text', text: msg}
+          ]
+        };
+      } else {
+        const msg = "今日は車は予約が入ってるから使えます。";
+        const payload = {
+          to: user,
+          messages: [
+            { type: 'text', text: msg}
+          ]
+        };
+      }
       msg_sender.sendMessage(payload); // sends a line message: 
-    } 
+    }
   }
 }
 
