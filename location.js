@@ -1,3 +1,8 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
 
 /**
  * The class to handle the location information of the user. 
@@ -10,6 +15,10 @@ class Location{
       this.tz = this.getTz();
       this.MY_GOOGLE_KEY = Location._getApiKey()
   }
+  /**
+   * 
+   * @returns This methods gets an api key for google map.
+   */
   static _getApiKey(){
     return PropertiesService.getScriptProperties().getProperty("GOOGLE_MAP_API_KEY");
   }
@@ -35,6 +44,10 @@ class Location{
     }
     return dist_dict;
   }
+  /**
+   * This method returns the timezone.
+   * @returns 
+   */
   getTz(){
       let url = "https://maps.googleapis.com/maps/api/timezone/json?location=" + this.lat +"%2C" + this.lon + "&timestamp=1331161200&key=" + this.MY_GOOGLE_KEY;
       try

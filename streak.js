@@ -1,3 +1,9 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
 class StreakManager{
     constructor(){
       this.message_sender_ = new LineMessageSender();

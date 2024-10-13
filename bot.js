@@ -1,3 +1,13 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
+
+/**
+ * Base class for bot. 
+ */
 class Bot{
   constructor(api_key, url){
       this.api_key = api_key;
@@ -5,6 +15,9 @@ class Bot{
   }
 }
 
+/**
+ * Class for talk api provided by Recruit
+ */
 class TalkAPi extends Bot{
   constructor(){
       const TALK_URL="https://api.a3rt.recruit.co.jp/talk/v1/smalltalk";
@@ -51,7 +64,7 @@ constructor(){
     this.model_list = ['gpt-3.5-turbo', 'gpt-4o'];
 }
 /**
-* Gets the response from the talk api.
+* Gets the response from the open ai api.
 * @param {str} input_str 
 * @returns response
 */

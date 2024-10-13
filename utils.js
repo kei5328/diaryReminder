@@ -1,5 +1,11 @@
-// utility functions
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
 
+
+// utility functions
 function testcovert()
 {
   var latest_entry = StreakManager.getLatestEntryDate();
@@ -12,8 +18,6 @@ function testcovert()
   var system_date = TimeZoneManager.convertTZ(curr_date, PropertiesService.getScriptProperties().getProperty("TZ"));
   Logger.log(input_date);
   Logger.log(system_date);
-  //Logger.log(up_date);
-  //Logger.log(curr_date);
 
 /*
   let new_one = new Date(curr_date.toLocaleDateString('en-US', {timeZone: "US/Pacific"}));
@@ -21,6 +25,9 @@ function testcovert()
   */
 }
 
+/**
+ * This function parses US locale string.
+ */
 function parseUSLocaleString()
 {
   let input_str = '12/21/2022, 22:23:41'
@@ -37,9 +44,7 @@ function parseUSLocaleString()
     Logger.log(parseInt(time[d]));
 
   }
-  //Logger.log(parseInt(dates[0]));
-  //Logger.log(time); 
-  
+
   var upd_date = new Date(parseInt(dates[2]), parseInt(dates[0]),parseInt(dates[1]), parseInt(time[0]),parseInt(time[1]),parseInt(time[2]));
   Logger.log(upd_date);
 }
@@ -53,10 +58,20 @@ function atSpecHour(specHour)
   return (date.getHours()==specHour);
 } 
 
+/**
+ * This function converts the date int in string to integer.
+ * @param {str} date 
+ * @returns 
+ */
 function getDateInt(date){
   return parseInt(getDateToString(date));
 }
 
+/**
+ * This function returns the date int in the string format.
+ * @param {} date 
+ * @returns 
+ */
 function getDateToString(date){
   date = TimeZoneManager.convertTZ(date,PropertiesService.getScriptProperties().getProperty("TZ"));
   const day = date.getDate();

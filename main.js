@@ -1,4 +1,10 @@
 /**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
+/**
  * This function gets run when the new entry gets inserted into the spreadsheet. 
  */
 function latestEntry()
@@ -23,7 +29,6 @@ function latestEntry()
 
 /**
  * This function gets run every one hour. This is the main reminder function.
- * @returns 
  */
 function myFunction() {
   const reminder = new Reminder();
@@ -32,7 +37,6 @@ function myFunction() {
 
 /**
  * This function gets run after midnight to keep track of the streak. 
- * @returns 
  */
 function checkForStreaks()
 {
@@ -42,6 +46,10 @@ function checkForStreaks()
   streak_manager.updateStreak();
 }
 
+/**
+ * This function sends a reminder to user if there is a reservation for the car
+ * @returns This function gets run at late at night. 
+ */
 function sendReservationInfo(){
   const prop_manager = new PropertyManager();
   if (atSpecHour(parseInt(prop_manager.reserve_check_time))==false){

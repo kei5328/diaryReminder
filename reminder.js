@@ -1,3 +1,12 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
+/**
+ * This is a reminder class. 
+ */
 class Reminder{
     constructor(){
       this.rem_time = parseInt(PropertiesService.getScriptProperties().getProperty("REMINDER_TIME"));

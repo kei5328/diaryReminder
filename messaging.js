@@ -1,4 +1,10 @@
 /**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
+/**
  * Simple class to send and reply messages. 
  */
 class LineMessageSender{
@@ -8,6 +14,10 @@ class LineMessageSender{
     this.reply_url = "https://api.line.me/v2/bot/message/reply";
     this.access_token = this.prop_manager_.ACCESSTOKEN;
   }
+  /**
+   * This function sends a message via Line Message API
+   * @param {LinePayload} payload 
+   */
   sendMessage(payload){
    
     const params = {
@@ -22,6 +32,10 @@ class LineMessageSender{
     const res = UrlFetchApp.fetch(this.push_url, params);
     Logger.log(res);
   }
+  /**
+   * This function replies a message via Line Message API
+   * @param {LinePayload} reply_payload 
+   */
   replyMessage(reply_payload){
     const params = {
       "headers": {
@@ -35,6 +49,9 @@ class LineMessageSender{
   }
 }
 
+/**
+ * This class handles the message generation.
+ */
 class MessageHandler{
   constructor(){
     this.message_sender_ = new LineMessageSender();
@@ -43,7 +60,12 @@ class MessageHandler{
     this.open_ai_api_ = new OpenAi();
     this.reserve_ = new CarReserveHandler();
   }
-
+  /**
+   * This function generates the reply payload from message event and response. 
+   * @param {event} event 
+   * @param {string} response 
+   * @returns 
+   */
   generateReplyFromResp(event, response){
     const payload = {
       "replyToken": event.replyToken,
@@ -223,7 +245,11 @@ class MessageHandler{
     return quotes[idx];
   }
 
-
+  /**
+   * This function makes the response for the car reservation. 
+   * @param {string} user_id 
+   * @returns 
+   */
   generateReserveListResponse(user_id){
     var upcoming = this.reserve_.getUserUpcoming(user_id);
     let i = 0;
@@ -315,13 +341,19 @@ class MessageHandler{
       return payload;
     }
   }
-
+  /**
+   * This function generates string from the date_int with YYYY/MM/DD format.
+   * @param {int} date_int 
+   * @returns 
+   */
   generateDateStringFromInt(date_int){
     let int_str = "" + date_int;
     return int_str.substring(0, 4) + "/" + int_str.substring(4,6) + "/" + int_str.substring(6,8);
   }
   /**
-   * 
+   * This message makes a CarouselMessage for canceling the reservation.
+   * @param {str} user_id 
+   * @returns 
    */
   generateReserveCancelCarouselMessage(user_id){
     var upcoming = this.reserve_.getUserUpcoming(user_id);
@@ -380,9 +412,11 @@ class MessageHandler{
   }
 
 
-  /**
-   * 
-   */
+/**
+ * This function makes the response for generating a car reservation.
+ * @param {*} event 
+ * @returns 
+ */
   generateCarReservePayload(event){
     var payload = {
       "replyToken": event.replyToken,
@@ -426,6 +460,10 @@ class MessageHandler{
     return payload;
   }
 
+  /**
+   * This function makes a car reserve payload.
+   * @returns 
+   */
   generateReservePayload(){
       let payload = {
       "to": this.prop_manager_.MY_ID,
@@ -492,7 +530,8 @@ class MessageHandler{
       this.message_sender_.replyMessage(payload);
   }
   /**
-   * 
+   * This function handles all post back events expected. 
+   * @param {} event 
    */
   handlePostBack(event){
     const paramsString = event.postback.data;

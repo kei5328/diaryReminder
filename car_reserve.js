@@ -1,10 +1,22 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
 
-
+/**
+ * Class to handle reservation.
+ */
 class CarReserveHandler{
     constructor(){
         this.pm = new PropertyManager();
         this.sheet_accessor = new SheetAccessor(this.pm.car_reserve_sheet_id, this.pm.car_reserve_sheet_name);
     }
+    /**
+     * This function generates a reservation map from a row.
+     * @param {array} row 
+     * @returns map
+     */
     parseRow(row){
         const map = new Map();
         map.set("id", row[0]);
@@ -14,12 +26,27 @@ class CarReserveHandler{
         map.set("active", row[4]);
         return map;
     }
+
+    /**
+     * This function generates a reservation row from given input.
+     * @param {datetime} id 
+     * @param {str} user_id 
+     * @param {int} reserve_date_int 
+     * @param {bool} active 
+     * @returns array 
+     */
     generateNewRow(id, user_id, reserve_date_int, active){
         var curr_date = new Date();
         curr_date = TimeZoneManager.convertTZ(curr_date,PropertiesService.getScriptProperties().getProperty("TZ"));
         const row = [id, curr_date.getTime(), user_id, reserve_date_int, active];
         return row;
     }
+
+    /**
+     * This function returns reservation from the date specified as int(e.g. 20241223)
+     * @param {int} date_int 
+     * @returns 
+     */
     getReservationFromDate(date_int){
         var filter_func = function(row, date_int){
             return (row[3] == date_int);
@@ -27,6 +54,13 @@ class CarReserveHandler{
         const reservation = this.sheet_accessor.getFilteredDataWithDynamicQuery(filter_func, date_int);
         return reservation;
     }
+
+    /**
+     * This function returns the reservation information by reservation ID. Returns a map if exists. 
+     * Returns string with error info if it doesn't exist.
+     * @param {int} id 
+     * @returns Union[map, str]
+     */
     getReservationFromId(id){
         var filter_func = function(row, id){
             return (row[0] == id);

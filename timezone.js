@@ -1,3 +1,12 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
+/**
+ * This is a class to handle timezone.
+ */
 class TimeZoneManager{
     constructor(){
     }
@@ -14,6 +23,12 @@ class TimeZoneManager{
         else 
           return false; 
     }
+    /**
+     * This function converts input date into input timezone.
+     * @param {*} date 
+     * @param {*} tzString 
+     * @returns 
+     */
     static convertTZ(date, tzString) 
     {
       let temp = date.toLocaleString('en-US', { timeZone: tzString,  hour12: false});
@@ -21,6 +36,11 @@ class TimeZoneManager{
       let new_date = new Date(temp);
       return new_date;
     }
+    /**
+     * This function returns the timezone from the location message.
+     * @param {*} event 
+     * @returns 
+     */
     static getTzFromMessage(event)
     {
       let MY_GOOGLE_KEY = PropertiesService.getScriptProperties().getProperty("GOOGLE_MAP_API_KEY");
@@ -42,6 +62,9 @@ class TimeZoneManager{
         return "-1";
       }
     }
+    /**
+     * This function checks if the latest diary input is from the same timezone.
+     */
     static checkLatestTz()
     {
         // let's check if the latest entry is has the same timezone as the set timezone. 

@@ -1,3 +1,8 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
 class PropertyManager{
     constructor(){
         this.ACCESSTOKEN = PropertiesService.getScriptProperties().getProperty("ACCESSTOKEN");

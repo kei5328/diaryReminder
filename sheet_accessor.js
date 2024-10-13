@@ -1,9 +1,20 @@
+/**
+ * Author: Casey Tsujita
+ * 
+ * (c) Copyright by Casey Tsujita
+ **/
+
 class SheetAccessor{
     constructor(sheet_id, sheet_name){
         this.sheet_id = sheet_id;
         this.sheet_name = sheet_name;
     }
-
+    /**
+     * This function accesses the sheet with given filter function and arguments. 
+     * @param {*} filterFunction 
+     * @param {*} filter_args 
+     * @returns 
+     */
     getFilteredDataWithDynamicQuery(filterFunction, filter_args) {
         // Open the spreadsheet by ID
         var spreadsheet = SpreadsheetApp.openById(this.sheet_id);
@@ -33,6 +44,10 @@ class SheetAccessor{
         // Return the filtered data
         return filteredData;
     }
+    /**
+     * This function adds a new row to a sheet.
+     * @param {*} new_row 
+     */
     appendRow(new_row){
         // Open the spreadsheet by ID
         var spreadsheet = SpreadsheetApp.openById(this.sheet_id);
@@ -41,6 +56,13 @@ class SheetAccessor{
         // Append the new row
         sheet.appendRow(new_row);
     }
+    /**
+     * This function sets the value to a given row and column.
+     * @param {*} row 
+     * @param {*} col 
+     * @param {*} value 
+     * @returns 
+     */
     setData(row, col, value){
         // Open the spreadsheet by ID
         var spreadsheet = SpreadsheetApp.openById(this.sheet_id);
@@ -50,6 +72,10 @@ class SheetAccessor{
         cellRange.setValue(value);
         return;
     }
+    /**
+     * This function returns the last row of the sheet. 
+     * @returns 
+     */
     getLastRow(){
         // Open the spreadsheet by ID
         var spreadsheet = SpreadsheetApp.openById(this.sheet_id);
